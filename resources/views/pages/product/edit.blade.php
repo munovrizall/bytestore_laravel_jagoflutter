@@ -25,12 +25,11 @@
         </div>
 
         <div class="section-body">
-            <h2 class="section-title">Users</h2>
-
+            <h2 class="section-title">Products</h2>
 
 
             <div class="card">
-                <form action="{{ route('user.update', $user) }}" method="POST">
+                <form action="{{ route('product.update', $product) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="card-header">
@@ -39,67 +38,51 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control @error('name')
-                                is-invalid
-                            @enderror" name="name" value="{{ $user->name }}">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $product->name }}">
                             @error('name')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control @error('email')
-                                is-invalid
-                            @enderror" name="email" value="{{ $user->email }}">
-                            @error('email')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-lock"></i>
-                                    </div>
-                                </div>
-                                <input type="password" class="form-control @error('password')
-                                is-invalid
-                            @enderror" name="password">
-                            </div>
-                            @error('password')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="number" class="form-control" name="phone" value="{{ $user->phone }}">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Roles</label>
-                            <div class="selectgroup w-100">
-                                <label class="selectgroup-item">
-                                    <input type="radio" name="roles" value="ADMIN" class="selectgroup-input" @if ($user->roles == 'ADMIN') checked @endif>
-                                    <span class="selectgroup-button">Admin</span>
-                                </label>
-                                <label class="selectgroup-item">
-                                    <input type="radio" name="roles" value="STAFF" class="selectgroup-input" @if ($user->roles == 'STAFF') checked @endif>
-                                    <span class="selectgroup-button">Staff</span>
-                                </label>
-                                <label class="selectgroup-item">
-                                    <input type="radio" name="roles" value="USER" class="selectgroup-input" @if ($user->roles == 'USER') checked @endif>
-                                    <span class="selectgroup-button">User</span>
-                                </label>
 
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ $product->price }}">
+                            @error('price')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label>Stock</label>
+                            <input type="number" class="form-control @error('stock') is-invalid @enderror" name="stock" value="{{ $product->stock }}">
+                            @error('stock')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <select class="form-control selectric @error('category_id') is-invalid @enderror" name="category_id">
+                                <option value="">-- Select Category --</option>
+                                @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Photo Product</label>
+                            <div class="col-sm-9">
+                                <input type="file" class="form-control" name="image" @error('image') is-invalid @enderror>
                             </div>
+                            @error('image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
+
                     <div class="card-footer text-right">
                         <button class="btn btn-primary">Submit</button>
                     </div>
