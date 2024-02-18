@@ -29,3 +29,7 @@ Route::get('/categories', [\App\Http\Controllers\Api\CategoryController::class, 
 Route::get('/products', [\App\Http\Controllers\Api\ProductController::class, 'index']);
 
 Route::apiResource('addresses', App\Http\Controllers\Api\AddressController::class)->middleware('auth:sanctum');
+
+Route::post('/order', [App\Http\Controllers\Api\OrderController::class,'order'])->middleware('auth:sanctum');
+
+route::post('/callback', [App\Http\Controllers\Api\CallbackController::class,'callback']);
