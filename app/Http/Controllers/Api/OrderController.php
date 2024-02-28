@@ -65,6 +65,17 @@ class OrderController extends Controller
 
     }
 
+    public function getOrderById($id)
+    {
+        $order = Order::with('orderItems.product')->find($id);
+        //load user and address
+        $order->load('user', 'address');
+
+        return response()->json([
+            'order' => $order,
+        ]);
+    }
+
     public function checkStatusOrder($id)
     {
         $order = Order::find($id); 
